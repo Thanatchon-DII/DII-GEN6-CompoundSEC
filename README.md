@@ -28,25 +28,3 @@ The importances of the project is allow student to do
 3. Card management
 
 - Add, modify, revoke permission of each card
-
-```mermaid
-flowchart TD
-    subgraph Physical Infrastructure
-        Server1[Primary Server]
-        Server2[Backup Server]
-        NAS[Network Storage]
-        Router[Security Router]
-    end
-
-    subgraph Network Security
-        Firewall[Hardware Firewall]
-        IDS[Intrusion Detection]
-        VPN[VPN Server]
-    end
-
-    subgraph High Availability
-        LoadBalancer[Load Balancer]
-        Backup[Backup System]
-        UPS[Power Management]
-    end
-```
