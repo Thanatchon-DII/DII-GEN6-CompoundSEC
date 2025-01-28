@@ -7,6 +7,8 @@
 # Ignore ไฟล์ config ส่วนตัว  
 # เช่น config.json
 
+MindSet.png
+
 # Ignore โฟลเดอร์ output
 # /build/
 
