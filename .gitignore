@@ -1,17 +1,1 @@
-# Ignore ไฟล์ชั่วคราว
-# เปิดไฟล์ .gitignore แล้วใส่ชื่อไฟล์หรือโฟลเดอร์ที่ต้องการให้ Git เพิกเฉย 
-
-*.log
-*.tmp
-
-# Ignore ไฟล์ config ส่วนตัว  
-# เช่น config.json
-
-MindSet.png
-
-# Ignore โฟลเดอร์ output
-# /build/
-
-/access-control-system-testsystemdesign-waychatgpt-1/
-/OperationProgram/
-RoadMap.md
+/limulu/
