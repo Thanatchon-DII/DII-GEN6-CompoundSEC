@@ -3,18 +3,18 @@ package main.java.com.accesscontrol.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import main.java.com.accesscontrol.model.Card; // คนละ Directory
+import main.java.com.accesscontrol.model.User; // คนละ Directory
 
 public class CardManagementService {
-    private static Map<String, Card> cards = new HashMap<>();
+    private static Map<String, User> cards = new HashMap<>();
 
     public static void addCard(String cardId, String accessLevel) {
-        cards.put(cardId, new Card(cardId, accessLevel));
+        cards.put(cardId, new User(cardId, accessLevel));
     }
 
     public static void modifyCard(String cardId, String newAccessLevel) {
         if (cards.containsKey(cardId)) {
-            cards.put(cardId, new Card(cardId, newAccessLevel));
+            cards.put(cardId, new User(cardId, newAccessLevel));
         }
     }
 

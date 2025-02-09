@@ -2,14 +2,13 @@ package main.java.com.accesscontrol.model;
 
 import java.util.*;
 
-public class Card {
-    private String cardId;
-    private String accessLevel;
-    private boolean isActive;
+abstract class Card {
+    protected String cardId;
+    protected String accessLevel;
+    protected boolean isActive;
 
     public Card(String cardId, String accessLevel) {
         this.cardId = cardId;
-        this.accessLevel = accessLevel;
         this.isActive = true;
     }
 
@@ -33,5 +32,7 @@ public class Card {
     public String toString() {
         return "Card ID: " + cardId + ", Access Level: " + accessLevel + ", Active: " + isActive;
     }
+
+    public abstract boolean validateAccess(String requiredLevel);
 
 }
