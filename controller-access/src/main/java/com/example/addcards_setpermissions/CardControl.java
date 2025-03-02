@@ -2,6 +2,8 @@ package main.java.com.example.addcards_setpermissions;
 
 import main.java.com.example.addcards_setpermissions.levelCard.CardStrategy;
 import main.java.com.example.eventlog.AuditlogSingleton;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class CardControl {
@@ -9,6 +11,11 @@ public class CardControl {
     public String cardId_Name;
     public String accessLevel;
     public boolean isActive;
+    public String pin; // จะต้องมาผ่านตัว Encrypt
+
+    private static String pattern = "MMddyyyy";
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern); // ใช้ในการเปลี่ยนรูปแบบ วัน
+    String pins = simpleDateFormat.format(new Date());
 
     public CardControl(CardStrategy strategy) {
         System.out.print("Enter Card Holder Name: ");
@@ -20,22 +27,20 @@ public class CardControl {
 
     public void setCardLevel(CardStrategy strategy) { // เปลี่ยนระดับการเข้าถึง
         this.strategy = strategy;
-        AuditlogSingleton.logRecord("Method : setCardLevel (Change Clearance Holder) | " + this.cardId_Name + // savelogตามหลักควรจะเก็บค่าเก่า
-                " | Last : " + this.accessLevel + " Clearance Holder State:" +
-                this.isActive + " to New  : " + this.accessLevel +
-                " Clearance Holder State:" + (this.isActive ? "Granted" : "Revoked"));
         this.accessLevel = strategy.setAccessLevel();
         this.isActive = strategy.setisActive();
-        System.out.println("!! New " + this.accessLevel + // แสดงผลว่าสำเร็จ
-                " Clearance Holder | Name: " + this.cardId_Name + " | State:"
-                + (this.isActive ? "Granted" : "Revoked"));
+        this.pin = this.accessLevel.equalsIgnoreCase("Confidential")
+                ? String.format("%sCT%s", pins.substring(0, 4), pins.substring(4))
+                : this.accessLevel.equalsIgnoreCase("Secret")
+                        ? String.format("%sST%s", pins.substring(0, 4), pins.substring(4))
+                        : String.format("%sTS%s", pins.substring(0, 4), pins.substring(4));
     }
 
     public void revokeCard() {
         this.isActive = false;
-        AuditlogSingleton.logRecord("Method : revokeCard (Revoke Clearance Holder) | " + this.cardId_Name + // save log
-                " | " + this.accessLevel + " Clearance Holder State:Revoked");
-        System.out.println("!! Revoke " + this.accessLevel + // แสดงผลว่าสำเร็จ
-                " Clearance Holder | Name: " + this.cardId_Name + " | State:Revoked");
+        AuditlogSingleton
+                .logRecord("< Revoke > " + cardId_Name + " | (L) " + accessLevel + " | (S) "
+                        + (isActive ? "Granted" : "Revoked"));
+        System.out.println("!! Revoke Card");
     }
 }

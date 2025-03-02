@@ -1,11 +1,16 @@
 package main.java.com.example.eventlog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 
 public class AuditlogSingleton {
     private static AuditlogSingleton instance;
+    private static String pattern = "MM/dd/yyyy";
+
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern); // ใช้ในการเปลี่ยนรูปแบบ วัน
+
     private static List<String> logs = new ArrayList<>();
 
     private AuditlogSingleton() {
@@ -22,7 +27,7 @@ public class AuditlogSingleton {
     }
 
     public static void logRecord(String log) {
-        logs.add(new Date() + " | " + log);
+        logs.add(simpleDateFormat.format(new Date()) + " | " + log);
     }
 
     public static void showLogs() { // คำสั่งโชว์ AuditLog ทั้งหมดในตอนนี้
