@@ -22,10 +22,10 @@ public class CardControl {
         Scanner name = new Scanner(System.in);
         this.cardId_Name = name.nextLine();
         setCardLevel(strategy);
-
     }
 
     public void setCardLevel(CardStrategy strategy) { // เปลี่ยนระดับการเข้าถึง
+        pins += this.cardId_Name;
         this.strategy = strategy;
         this.accessLevel = strategy.setAccessLevel();
         this.isActive = strategy.setisActive();

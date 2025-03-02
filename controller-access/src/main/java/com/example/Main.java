@@ -58,7 +58,7 @@ public class Main {
                         System.out.println("Invalid option, please try again.");
                 }
             } catch (Exception e) {
-                System.out.println("Invalid option, please try again.");
+                System.out.println("Invalid option, please try again.55");
             }
         }
     }
@@ -198,5 +198,10 @@ public class Main {
 
         System.out.println("Accessing classified information:");
         AccessController.checkAccess(card.accessLevel, (card.isActive ? "Granted" : "Revoked"), card.pin);
+        AuditlogSingleton
+                .logRecord("< Access > " + card.cardId_Name + " | Use >> "
+                        + (card.accessLevel.equalsIgnoreCase("Confidential") ? "Confidential"
+                                : (card.accessLevel.equalsIgnoreCase("Secret") ? "Confidential and Secret"
+                                        : "Confidential and Secret and Top Secret")));
     }
 }
